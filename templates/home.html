@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FWI Prediction Model</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .login {
+            width: 300px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            margin: 100px auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        h2 {
+            text-align: center;
+            color: #555;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        function validateForm() {
+            var inputs = document.querySelectorAll('input[type="text"]');
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].value == "") {
+                    alert("All fields must be filled out");
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div class="login">
+        <h1>FWI Prediction</h1>
+        <!-- Main Input For Receiving Query to our ML -->
+        <form action="{{ url_for('predict_datapoint')}}" method="post" onsubmit="return validateForm()">
+            <label for="temperature">Temperature</label>
+            <input type="text" id="temperature" name="Temperature" placeholder="Temperature" required="required" />
+            
+            <label for="rh">RH</label>
+            <input type="text" id="rh" name="RH" placeholder="RH" required="required" />
+            
+            <label for="ws">Ws</label>
+            <input type="text" id="ws" name="Ws" placeholder="Ws" required="required" />
+            
+            <label for="rain">Rain</label>
+            <input type="text" id="rain" name="Rain" placeholder="Rain" required="required" />
+            
+            <label for="ffmc">FFMC</label>
+            <input type="text" id="ffmc" name="FFMC" placeholder="FFMC" required="required" />
+            
+            <label for="dmc">DMC</label>
+            <input type="text" id="dmc" name="DMC" placeholder="DMC" required="required" />
+            
+            <label for="isi">ISI</label>
+            <input type="text" id="isi" name="ISI" placeholder="ISI" required="required" />
+            
+            <label for="classes">Classes</label>
+            <input type="text" id="classes" name="Classes" placeholder="Classes" required="required" />
+            
+            <label for="region">Region</label>
+            <input type="text" id="region" name="Region" placeholder="Region" required="required" />
+            
+            <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+        </form>
+        <h2>THE FWI prediction is {{result}}</h2>
+    </div>
+</body>
+</html>
